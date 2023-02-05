@@ -2,6 +2,20 @@ name: test-disable
 on: [workflow_dispatch]
 
 jobs:
+  test1:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            github.com:443
+            registry.npmjs.org:443
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "16"
   test:
     runs-on: ubuntu-latest
 
